@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title> :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Filtermaze Google CTF 2025 Filtermaze is a nice cryptography challenge that we solved during Google CTF. The challenge was solved by collaborative efforts with @heromnxpw0 and @l0mb4rdghini (They are goats). Anyway, let’s start with the challenge.
+In the handout, we have 3 files
+filtermaze.py, our main code
+graph.json
+lwe_pub_params.json
+Code analysis At the beginning of the main, you can see this:
+flag = load_flag(&#34;flag&#34;) graph_data = load_graph(&#34;graph.json&#34;) lwe_params = LWEParams() &lt;helper for local testing&gt; with open(&#34;lwe_secret_params.json&#34;, &#34;r&#34;) as s: lwe_params = json.load(s) lwe_A = lwe_params.get(&#34;A&#34;) lwe_s_key = lwe_params.get(&#34;s&#34;) lwe_e_signed = lwe_params.get(&#34;e&#34;) lwe_b = lwe_params.get(&#34;b&#34;) It is a normal LWE setup here, and it loads the graph.json as graph_data . You can find that we have 2 ways to interact with the server
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="//localhost:1313/posts/test/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="//localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="">
+<meta property="og:description" content="Filtermaze Google CTF 2025 Filtermaze is a nice cryptography challenge that we solved during Google CTF. The challenge was solved by collaborative efforts with @heromnxpw0 and @l0mb4rdghini (They are goats). Anyway, let’s start with the challenge.
+In the handout, we have 3 files
+filtermaze.py, our main code
+graph.json
+lwe_pub_params.json
+Code analysis At the beginning of the main, you can see this:
+flag = load_flag(&#34;flag&#34;) graph_data = load_graph(&#34;graph.json&#34;) lwe_params = LWEParams() &lt;helper for local testing&gt; with open(&#34;lwe_secret_params.json&#34;, &#34;r&#34;) as s: lwe_params = json.load(s) lwe_A = lwe_params.get(&#34;A&#34;) lwe_s_key = lwe_params.get(&#34;s&#34;) lwe_e_signed = lwe_params.get(&#34;e&#34;) lwe_b = lwe_params.get(&#34;b&#34;) It is a normal LWE setup here, and it loads the graph.json as graph_data . You can find that we have 2 ways to interact with the server
+" />
+<meta property="og:url" content="//localhost:1313/posts/test/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="//localhost:1313/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="//localhost:1313/posts/test/"></a>
+  </h1>
+  <div class="post-meta"></div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="filtermaze-google-ctf-2025">Filtermaze Google CTF 2025<a href="#filtermaze-google-ctf-2025" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Filtermaze is a nice cryptography challenge that we solved during Google CTF. The challenge was solved by collaborative efforts with @heromnxpw0 and @l0mb4rdghini (They are goats). Anyway,  let’s start with the challenge.</p>
+<p><img alt="image.png" src="image.png"></p>
+<p>In the handout, we have 3 files</p>
+<ol>
+<li>
+<p><code>filtermaze.py</code>, our main code</p>
+</li>
+<li>
+<p><code>graph.json</code></p>
+</li>
+<li>
+<p><code>lwe_pub_params.json</code></p>
+</li>
+</ol>
+<h1 id="code-analysis">Code analysis<a href="#code-analysis" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>At the beginning of the main, you can see this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">flag</span> <span class="o">=</span> <span class="n">load_flag</span><span class="p">(</span><span class="s2">&#34;flag&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">graph_data</span> <span class="o">=</span> <span class="n">load_graph</span><span class="p">(</span><span class="s2">&#34;graph.json&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">lwe_params</span> <span class="o">=</span> <span class="n">LWEParams</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="n">helper</span> <span class="k">for</span> <span class="n">local</span> <span class="n">testing</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;lwe_secret_params.json&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">lwe_params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lwe_A</span> <span class="o">=</span> <span class="n">lwe_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;A&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lwe_s_key</span> <span class="o">=</span> <span class="n">lwe_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;s&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lwe_e_signed</span> <span class="o">=</span> <span class="n">lwe_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;e&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lwe_b</span> <span class="o">=</span> <span class="n">lwe_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;b&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>It is a normal LWE setup here, and it loads the <code>graph.json</code> as <code>graph_data</code> . You can find that we have 2 ways to interact with the server</p>
+<ol>
+<li>
+<p><code>check_path</code></p>
+</li>
+<li>
+<p><code>get_flag</code></p>
+</li>
+</ol>
+<p>Here is the <code>check_path</code> block:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&#34;check_path&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">segment</span> <span class="o">=</span> <span class="n">client_command</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;segment&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&#34;Segment must be a list.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">path_result</span> <span class="o">=</span> <span class="n">path_checker</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_result</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="n">response_payload</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;path_complete&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lwe_error_magnitudes&#34;</span><span class="p">:</span> <span class="n">path_result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">path_result</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="n">response_payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;valid_prefix&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="n">response_payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;path_incorrect&#34;</span><span class="p">}</span>
+</span></span></code></pre></div><p>When we use this command, it will take a list from us and return one of three possible responses. It takes our list and passes it to <code>path_checker.check()</code> . Let’s explore <code>path_checker</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PathChecker</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">secret_path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">graph_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">lwe_error_mags</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">secret_path</span> <span class="o">=</span> <span class="n">secret_path</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph_data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">lwe_error_mags</span> <span class="o">=</span> <span class="n">lwe_error_mags</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">path_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secret_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candidate_segment</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">seg_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate_segment</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">seg_len</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_len</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">candidate_segment</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">node</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret_path</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>  <span class="c1"># Node mismatch</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">prev_node</span> <span class="o">=</span> <span class="n">candidate_segment</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">neighbors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">prev_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">neighbors</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">seg_len</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_len</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">error_magnitudes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">err_val</span><span class="p">))</span> <span class="k">for</span> <span class="n">err_val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lwe_error_mags</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">error_magnitudes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">True</span>
+</span></span></code></pre></div><p>So this class needs 3 things to work as expected</p>
+<ol>
+<li>
+<p>a secret_path</p>
+</li>
+<li>
+<p>a graph</p>
+</li>
+<li>
+<p>and LWE error mags</p>
+</li>
+</ol>
+<p>the <code>check()</code> will take the provided list from us, and it will start comparing it to the secret path.</p>
+<ol>
+<li>
+<p>provided path length $&gt;$ length of secret path. It will return <code>False</code></p>
+</li>
+<li>
+<p>Your node $K_i \neq path_i$. It will return <code>false</code></p>
+</li>
+<li>
+<p>If our path didn’t fail in the loop, AND its length is the same as the secret path length, it will return to us error magnitudes</p>
+</li>
+<li>
+<p>If we provided the prefix of the secret path, not the full path, it would return true</p>
+</li>
+</ol>
+<p>So when we call this function in <code>main()</code> We will get the LWE error magnitudes if our list is correct. If not, the server will tell us if the prefix is correct or not.</p>
+<p>Now with the 2nd functionality of our server, which is <code>get_flag</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&#34;get_flag&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">key_s_raw</span> <span class="o">=</span> <span class="n">client_command</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;lwe_secret_s&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key_s_raw</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&#34;lwe_secret_s must be a list.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">key_s_raw</span> <span class="o">==</span> <span class="n">lwe_s_key</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="n">response_payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;success&#34;</span><span class="p">,</span> <span class="s2">&#34;flag&#34;</span><span class="p">:</span> <span class="n">flag</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="n">response_payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;invalid_key&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">response_payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;error&#34;</span><span class="p">,</span> <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Unknown command&#34;</span><span class="p">}</span>
+</span></span></code></pre></div><p>It is really simple, where it checks if we got the LWE secret <code>s</code> correctly or not. And if we got it right, the server will print the flag. So I think the attack path is clear now, we will try to get the error magnitudes by finding the secret Hamiltonian path, then we will use these errors to break LWE and get <code>s</code> .</p>
+<h1 id="hope-you-love-graph-theory-3">Hope you love graph theory &lt;3<a href="#hope-you-love-graph-theory-3" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>First of all, let’s define what is Hamiltonian path is. A Hamiltonian path is a path that visits each vertex of a graph exactly once. For example,</p>
+<p><img alt="image.png" src="image%201.png"></p>
+<p>The set of points <code>{T,U,V,W,S}</code> are performing a Hamiltonian path of the graph <code>G</code> . The problem of finding a Hamiltonian path in a graph is an NP-complete problem. And the timing complexity of finding a Hamiltonian path in a graph that consists of N vertices is $O(N!)$. Let’s visualize our graph from the challenge and see</p>
+<p><img alt="image.png" src="image%202.png"></p>
+<p>This is the graph from <code>graph.json</code> We need to find a Hamiltonian path in this graph, which is hard. But we can use the server responses to help us, how?. Remember that the server tells you if you have the prefix right or wrong. You don’t need to provide the full path at once. Using this fact, we can brute force to get the path, AND the time complexity is reduced to $O(N^2)$ which is WAYYY better than $O(N!)$. Translating this to code, I was able to get the Hamiltonian path and the LWE error magnitudes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span> <span class="nn">subprocess</span><span class="o">,</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">recv_until</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">marker</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">marker</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Connection closed before seeing </span><span class="si">{</span><span class="n">marker</span><span class="si">!r}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read_json_response</span><span class="p">(</span><span class="n">reader</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">raw</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">raw</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&#34;Connection closed unexpectedly while waiting for JSON&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="s1">&#39;{&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw</span> <span class="ow">or</span> <span class="s1">&#39;}&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">end</span>   <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">candidate</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[!] JSON parse failed on </span><span class="si">{</span><span class="n">candidate</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="s1">&#39;filtermaze.2025.ctfcompetition.com&#39;</span><span class="p">,</span> <span class="mi">1337</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Connecting to </span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2"> …&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">reader</span> <span class="o">=</span> <span class="n">sock</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">writer</span> <span class="o">=</span> <span class="n">sock</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">recv_until</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="s2">&#34;Welcome!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">graph</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;graph.json&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;graph loaded, N = </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">cand</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">cmd</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;command&#34;</span><span class="p">:</span><span class="s2">&#34;check_path&#34;</span><span class="p">,</span><span class="s2">&#34;segment&#34;</span><span class="p">:</span> <span class="n">path</span> <span class="o">+</span> <span class="p">[</span><span class="n">cand</span><span class="p">]}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;</span><span class="se">\\</span><span class="s2">n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">writer</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">resp</span> <span class="o">=</span> <span class="n">read_json_response</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">status</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;status&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&#34;valid_prefix&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cand</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;pos </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2">: found </span><span class="si">{</span><span class="n">cand</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&#34;path_complete&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cand</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">errors</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;lwe_error_magnitudes&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;done!! </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;LWE error magnitudes: </span><span class="si">{</span><span class="n">errors</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;faild at </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span></code></pre></div><p>Keep in mind that when you connect to the server, it will ask you to solve PoW, which is outside the scope of the challenge, so I didn’t add the part of the code that solves it.</p>
+<p>Using this code, I was able to get the path and error magnitudes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">done</span><span class="err">!!</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">29</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">LWE</span> <span class="n">error</span> <span class="n">magnitudes</span><span class="p">:</span> <span class="p">[</span><span class="mi">265</span><span class="p">,</span> <span class="mi">622</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">716</span><span class="p">,</span> <span class="mi">722</span><span class="p">,</span> <span class="mi">308</span><span class="p">,</span> <span class="mi">996</span><span class="p">,</span> <span class="mi">799</span><span class="p">,</span> <span class="mi">742</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">927</span><span class="p">,</span> <span class="mi">698</span><span class="p">,</span> <span class="mi">626</span><span class="p">,</span> <span class="mi">969</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">321</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">271</span><span class="p">,</span> <span class="mi">839</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">399</span><span class="p">,</span> <span class="mi">752</span><span class="p">,</span> <span class="mi">989</span><span class="p">,</span> <span class="mi">666</span><span class="p">,</span> <span class="mi">629</span><span class="p">,</span> <span class="mi">271</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">311</span><span class="p">,</span> <span class="mi">840</span><span class="p">,</span> <span class="mi">821</span><span class="p">,</span> <span class="mi">821</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">978</span><span class="p">,</span> <span class="mi">488</span><span class="p">,</span> <span class="mi">781</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">818</span><span class="p">,</span> <span class="mi">849</span><span class="p">,</span> <span class="mi">903</span><span class="p">,</span> <span class="mi">776</span><span class="p">,</span> <span class="mi">142</span><span class="p">,</span> <span class="mi">505</span><span class="p">,</span> <span class="mi">951</span><span class="p">,</span> <span class="mi">582</span><span class="p">,</span> <span class="mi">638</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">872</span><span class="p">,</span> <span class="mi">427</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">307</span><span class="p">,</span> <span class="mi">209</span><span class="p">,</span> <span class="mi">475</span><span class="p">,</span> <span class="mi">970</span><span class="p">,</span> <span class="mi">748</span><span class="p">,</span> <span class="mi">814</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">742</span><span class="p">,</span> <span class="mi">744</span><span class="p">,</span> <span class="mi">566</span><span class="p">,</span> <span class="mi">262</span><span class="p">,</span> <span class="mi">852</span><span class="p">,</span> <span class="mi">740</span><span class="p">,</span> <span class="mi">309</span><span class="p">,</span> <span class="mi">997</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">995</span><span class="p">,</span> <span class="mi">434</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">257</span><span class="p">,</span> <span class="mi">953</span><span class="p">,</span> <span class="mi">924</span><span class="p">,</span> <span class="mi">678</span><span class="p">,</span> <span class="mi">232</span><span class="p">,</span> <span class="mi">226</span><span class="p">,</span> <span class="mi">560</span><span class="p">,</span> <span class="mi">414</span><span class="p">,</span> <span class="mi">584</span><span class="p">,</span> <span class="mi">579</span><span class="p">,</span> <span class="mi">767</span><span class="p">,</span> <span class="mi">810</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">894</span><span class="p">,</span> <span class="mi">446</span><span class="p">,</span> <span class="mi">281</span><span class="p">,</span> <span class="mi">761</span><span class="p">,</span> <span class="mi">908</span><span class="p">,</span> <span class="mi">715</span><span class="p">,</span> <span class="mi">787</span><span class="p">,</span> <span class="mi">722</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">474</span><span class="p">,</span> <span class="mi">431</span><span class="p">,</span> <span class="mi">292</span><span class="p">,</span> <span class="mi">346</span><span class="p">]</span>
+</span></span></code></pre></div><h1 id="i-hate-lattice-time">“I hate lattice” time<a href="#i-hate-lattice-time" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Let’s explain first what LWE is. In LWE, there exists a hidden list of $n$ small integers and defined like this</p>
+<p>$$</p>
+<p>s=(s1, s2,\dots,s_n)</p>
+<p>$$</p>
+<p>We are given $m$ rows, each a public row of numbers</p>
+<p>$$</p>
+<p>A_{i,*}=(A_{i,1},A_{i,2}, \dots,A_{i,n})</p>
+<p>$$</p>
+<p>And also a public parameter $b_i$. Moreover, the following dot product is computed</p>
+<p>$$</p>
+<p>A_{i,*} \cdot{s} = A_{i,1}s_1 + \dots+A_{i,n}s_n</p>
+<p>$$</p>
+<p>Then adds a random mistake called the <code>errors</code>  $e_i$. Ok, but how $b_i$  is computed?</p>
+<p>$$</p>
+<p>b_i= A_{i,*} \cdot s + e_i \pmod q</p>
+<p>$$</p>
+<p>The thing is that if LWE has no errors, it would be very easy to break using simple linear algebra. But adding the errors to the process adds complexity, and it will not be easy to break and get the secret <code>s</code> . Let’s get back to the challenge so the challenge is giving us the error magnitudes, and this problem should be solved, right? Well, let me say this, but no. The challenge is giving us the error magnitudes, but without the sign of each error. We can think of $e_i$  as $e_i=sign \cdot {mag_i}$ where $sign= \pm 1$.</p>
+<p>Re-arrange</p>
+<p>$$</p>
+<p>A_{i,*}\cdot s - b_i ;=; -e_i ;=; -\mathrm{sign_i}\cdot \mathrm{mag}_i.</p>
+<p>$$</p>
+<p>Now divide each side by the known magnitude $\mathrm{mag}_i$</p>
+<p>$$</p>
+<p>\frac{A_{i,*}\cdot s - b_i}{\mathrm{mag}_i}</p>
+<p>= -,sign</p>
+<p>\quad\text{(which is either +1 or –1)}.</p>
+<p>$$</p>
+<p>the right hand side is exactly the unkown sign that we want. The vector whose last slots are exactly $-\mathrm{sign_1},\dots,-\mathrm{sign_m}$ turns out to be shorter than any random lattice point because those slots are just $\pm 1$ which is not large. Reading the $\pm1$  tells you every sign of the magnitudes and by that we can solve to get s. This is the code we used to get s</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">50</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="mi">1009</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">find_signs</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">mags</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">basis</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">basis_</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">basis</span><span class="o">.</span><span class="n">rows</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">basis_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">mags</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">row</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">basis</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">basis_</span><span class="p">)</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">diagonal_matrix</span><span class="p">([</span><span class="n">q</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">lattice</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">BKZ</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">lattice</span><span class="o">.</span><span class="n">rows</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">row</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">recover_secret</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A_mod</span>  <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">rhs</span>    <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">e</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">A_mod</span><span class="o">.</span><span class="n">solve_right</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">%</span> <span class="n">q</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">magnitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">265</span><span class="p">,</span> <span class="mi">622</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">716</span><span class="p">,</span> <span class="mi">722</span><span class="p">,</span> <span class="mi">308</span><span class="p">,</span> <span class="mi">996</span><span class="p">,</span> <span class="mi">799</span><span class="p">,</span> <span class="mi">742</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">927</span><span class="p">,</span> <span class="mi">698</span><span class="p">,</span> <span class="mi">626</span><span class="p">,</span> <span class="mi">969</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">321</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">271</span><span class="p">,</span> <span class="mi">839</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">399</span><span class="p">,</span> <span class="mi">752</span><span class="p">,</span> <span class="mi">989</span><span class="p">,</span> <span class="mi">666</span><span class="p">,</span> <span class="mi">629</span><span class="p">,</span> <span class="mi">271</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">311</span><span class="p">,</span> <span class="mi">840</span><span class="p">,</span> <span class="mi">821</span><span class="p">,</span> <span class="mi">821</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">978</span><span class="p">,</span> <span class="mi">488</span><span class="p">,</span> <span class="mi">781</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">818</span><span class="p">,</span> <span class="mi">849</span><span class="p">,</span> <span class="mi">903</span><span class="p">,</span> <span class="mi">776</span><span class="p">,</span> <span class="mi">142</span><span class="p">,</span> <span class="mi">505</span><span class="p">,</span> <span class="mi">951</span><span class="p">,</span> <span class="mi">582</span><span class="p">,</span> <span class="mi">638</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">872</span><span class="p">,</span> <span class="mi">427</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">307</span><span class="p">,</span> <span class="mi">209</span><span class="p">,</span> <span class="mi">475</span><span class="p">,</span> <span class="mi">970</span><span class="p">,</span> <span class="mi">748</span><span class="p">,</span> <span class="mi">814</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">742</span><span class="p">,</span> <span class="mi">744</span><span class="p">,</span> <span class="mi">566</span><span class="p">,</span> <span class="mi">262</span><span class="p">,</span> <span class="mi">852</span><span class="p">,</span> <span class="mi">740</span><span class="p">,</span> <span class="mi">309</span><span class="p">,</span> <span class="mi">997</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">995</span><span class="p">,</span> <span class="mi">434</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">257</span><span class="p">,</span> <span class="mi">953</span><span class="p">,</span> <span class="mi">924</span><span class="p">,</span> <span class="mi">678</span><span class="p">,</span> <span class="mi">232</span><span class="p">,</span> <span class="mi">226</span><span class="p">,</span> <span class="mi">560</span><span class="p">,</span> <span class="mi">414</span><span class="p">,</span> <span class="mi">584</span><span class="p">,</span> <span class="mi">579</span><span class="p">,</span> <span class="mi">767</span><span class="p">,</span> <span class="mi">810</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">894</span><span class="p">,</span> <span class="mi">446</span><span class="p">,</span> <span class="mi">281</span><span class="p">,</span> <span class="mi">761</span><span class="p">,</span> <span class="mi">908</span><span class="p">,</span> <span class="mi">715</span><span class="p">,</span> <span class="mi">787</span><span class="p">,</span> <span class="mi">722</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">474</span><span class="p">,</span> <span class="mi">431</span><span class="p">,</span> <span class="mi">292</span><span class="p">,</span> <span class="mi">346</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;googleCTF25/crypto-filtermaze/lwe_pub_params.json&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">signs</span> <span class="o">=</span> <span class="n">find_signs</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">magnitudes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">signs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">magnitudes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">signs</span><span class="p">))]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="n">recover_secret</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">vector</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">vector</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># [476, 307, 600, 197, 240, 777, 484, 151, 334, 229, 183, 106, 695, 176, 410, 795, 49, 886, 690, 743, 5, 790, 918, 466, 239, 300, 159, 786, 550, 572, 95, 77, 145, 742, 82, 71, 332, 597, 992, 1, 71, 17, 192, 133, 513, 795, 508, 218, 329, 403]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#CTF{d4_sup3r_sh0rt_3rr0r_v3ct0r_1s_th3_k3y}</span>
+</span></span></code></pre></div><p>Now we are done with the challenge, all we need is to submit it to the server and the server will give us the flag. AAAAAAAAAAANNND that’s it. See you in the upcoming write-ups (hopefully)</p>
+<p>（づ￣3￣）づ╭❤️～</p>
+
+      </div></div>
+
+  
+    
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
