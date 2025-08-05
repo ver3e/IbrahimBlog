@@ -12,7 +12,7 @@ pagination.pagerSize = 5
 # Minimal parameters - main configuration is in config/_default/
 [params]
   math = true
-[markup]
+ [markup]
   [markup.goldmark]
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]
