@@ -9,7 +9,7 @@ tags:
 ---
 ## 1. Introduction
 
-![[Pasted image 20251202030150.png]]
+![Image Description](/images/Pasted%20image%2020251202042140.png)
 The Obsidian Optimizer is a reverse engineering challenge from `heroCTF`. I usually don't solve reverse engineering challenges but this time we cleared cryptography challenges too early so i decided to give this challenge a shot. Shoutout to the author of this challenge, the challenge introduced me to some cool concepts and was fun to solve. In this writeup i will try to give small introduction to LLVM and some important concepts to know before diving into the challenge. Also, for any part of the decompiled code i will share it and remove any unnecessary code to the point that I'm explaining. 
 
 ## 2. Understanding LLVM Basics
@@ -153,7 +153,7 @@ The patched secret IR is compiled and added to the `JD_Secrets` library. Now all
     } else {
         llvm::errs() << "[-] Nope\\\\n";
     }
-}
+
 
 ```
 

@@ -11,7 +11,7 @@ tags:
 
 Filtermaze is a nice cryptography challenge that we solved during Google CTF. The challenge was solved by collaborative efforts with @heromnxpw0 and @l0mb4rdghini (They are goats). Anyway,  let’s start with the challenge.
 
-  ![[Pasted image 20250704160626.png]]
+  !![Image Description](/images/Pasted%20image%2020250704160626.png)
 
   
 
@@ -137,12 +137,12 @@ It is really simple, where it checks if we got the LWE secret `s` correctly or n
 
 First of all, let’s define what is Hamiltonian path is. A Hamiltonian path is a path that visits each vertex of a graph exactly once. For example,  
 
-![[Pasted image 20250704160711.png]]  
+!![Image Description](/images/Pasted%20image%2020250704160711.png)  
 
 The set of points `{T,U,V,W,S}` are performing a Hamiltonian path of the graph `G` . The problem of finding a Hamiltonian path in a graph is an NP-complete problem. And the timing complexity of finding a Hamiltonian path in a graph that consists of N vertices is $O(N!)$. Let’s visualize our graph from the challenge and see
 
 
-![[Pasted image 20250704160728.png]]
+!![Image Description](/images/Pasted%20image%2020250704160728.png)
 
   
 This is the graph from `graph.json` We need to find a Hamiltonian path in this graph, which is hard. But we can use the server responses to help us, how?. Remember that the server tells you if you have the prefix right or wrong. You don’t need to provide the full path at once. Using this fact, we can brute force to get the path, AND the time complexity is reduced to $O(N^2)$ which is WAYYY better than $O(N!)$. Translating this to code, I was able to get the Hamiltonian path and the LWE error magnitudes.
