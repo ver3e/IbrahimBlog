@@ -1,6 +1,6 @@
 ---
 title: The Obsidian Optimizer
-date: 2025-12-2
+date: 2025-12-02
 draft: false
 tags:
   - rev
