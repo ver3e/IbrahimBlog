@@ -8,7 +8,7 @@ tags:
   - hyperelliptic-curve
 ---
 During the weekend, I participated in Idek CTF, which was a nice CTF. I was able to solve a cryptography challenge about hyperelliptic curves, which is something new to me.
-!![Image Description](/images/Pasted%20image%2020250805121656.png)
+![Image Description](/images/Pasted%20image%2020250805121656.png)
 
 # Code analysis
 

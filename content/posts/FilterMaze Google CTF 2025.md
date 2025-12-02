@@ -11,7 +11,7 @@ tags:
 
 Filtermaze is a nice cryptography challenge that we solved during Google CTF. The challenge was solved by collaborative efforts with @heromnxpw0 and @l0mb4rdghini (They are goats). Anyway,  let’s start with the challenge.
 
-  !![Image Description](/images/Pasted%20image%2020250704160626.png)
+  ![Image Description](/images/Pasted%20image%2020250704160626.png)
 
   
 

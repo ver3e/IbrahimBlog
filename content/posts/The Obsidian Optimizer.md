@@ -1,5 +1,5 @@
 ---
-title: The Obsidian Optimizer
+title: The Obsidian Optimizer Hero CTF 2025
 date: 2025-12-02
 draft: false
 tags:
